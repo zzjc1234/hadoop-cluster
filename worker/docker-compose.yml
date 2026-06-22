@@ -12,12 +12,6 @@ services:
       - type: volume
         source: logs
         target: /usr/local/hadoop/logs
-      - type: volume
-        source: zookeeper-data
-        target: /usr/local/zookeeper/data
-#      - type: bind
-#        source: ${CONFIG_FOLDER}/zoo.cfg
-#        target: /usr/local/zookeeper/conf/zoo.cfg
     networks:
       - hadoop-net
     command: ${WORKER_NUMBER} ${WORKER_ID}
@@ -28,4 +22,3 @@ networks:
 volumes:
   hdfs-data:
   logs:
-  zookeeper-data:

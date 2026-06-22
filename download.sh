@@ -24,7 +24,7 @@ function check_download {
     if [ -f "$filepath" ]; then
         echo "found: $1!"
 
-        downloadedsize=$(stat -c '%s' $filepath | tr -d '\r\n')
+        downloadedsize=$(wc -c < "$filepath" | tr -d '[:space:]')
         filesize=$(curl -sI $url | grep -i Content-Length | awk '{print $2}' | tr -d '\r\n')
 
         if [ "$downloadedsize" = "$filesize" ]; then
@@ -35,7 +35,7 @@ function check_download {
         echo "error: $1 filesize incorrect!"
 
     fi
-    curl -o $filepath $url
+    curl -fL -o $filepath $url
     echo "downloaded: $1!"
 }
 
@@ -52,7 +52,7 @@ function download_zookeeper {
 }
 
 function download_spark {
-    check_download spark-$SPARK_VERSION-bin-without-hadoop.tgz https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-${SPARK_VERSION}
+    check_download spark-$SPARK_VERSION-bin-without-hadoop.tgz https://mirrors.huaweicloud.com/apache/spark/spark-${SPARK_VERSION}
 }
 
 case $1 in

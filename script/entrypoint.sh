@@ -34,32 +34,7 @@ if [ "${WORKER_ID}" = "0" ]; then
     done
 fi
 
-cp ${ZOOKEEPER_HOME}/conf/zoo.template.cfg ${ZOOKEEPER_HOME}/conf/zoo.cfg
-for ((i=1;i<=WORKER_NUMBER;i++)); do
-    echo "server.$i=hadoop-worker-$i:2888:3888" >> "${ZOOKEEPER_HOME}/conf/zoo.cfg"
-done
-echo ${WORKER_ID} > ${ZOOKEEPER_HOME}/data/myid
-
-ZK_CONNECT="hadoop-master:2181"
-for ((i=1;i<=WORKER_NUMBER;i++)); do
-    ZK_CONNECT=${ZK_CONNECT},hadoop-worker-$i:2181
-done
-echo "
-drill.exec: {
-  cluster-id: \"hadoopcluster\",
-  zk.connect: \"${ZK_CONNECT}\"
-}
-" > ${DRILL_HOME}/conf/drill-override.conf
-
-# start zookeeper
-${ZOOKEEPER_HOME}/bin/zkServer.sh start
-
-# start drill
-${DRILL_HOME}/bin/drillbit.sh start 
-
 chmod -R 777 ${HADOOP_HOME}/logs
 chown -R hadoop:hadoop ${HADOOP_HOME}/logs
-chmod -R 777 ${DRILL_HOME}/log
-chown -R hadoop:hadoop ${DRILL_HOME}/log
 
-zsh
+tail -f /dev/null
