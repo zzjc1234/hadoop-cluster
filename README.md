@@ -31,11 +31,12 @@ master/init_network.sh
 ./run-wordcount.sh
 ```
 
-5. Start Drill in a separate container.
+5. Start a Drillbit cluster with ZooKeeper.
 ```bash
 ./build/docker-build-drill-image.sh
 drill/start.sh
 ```
+Drill Web UIs are exposed at `http://localhost:8047`, `http://localhost:8048`, and `http://localhost:8049`.
 
 ### Deploy Hadoop Cluster on Multiple Host Machines
 
