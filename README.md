@@ -31,6 +31,12 @@ master/init_network.sh
 ./run-wordcount.sh
 ```
 
+5. Start Drill in a separate container.
+```bash
+./build/docker-build-drill-image.sh
+drill/start.sh
+```
+
 ### Deploy Hadoop Cluster on Multiple Host Machines
 
 1. Build docker image.

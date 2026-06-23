@@ -1,0 +1,20 @@
+services:
+  drill:
+    image: tcimba/drill:latest
+    container_name: hadoop-drill
+    hostname: hadoop-drill
+    ports:
+      - "8047:8047"
+      - "31010:31010"
+    environment:
+      DRILL_HEAP: 1G
+      DRILL_MAX_DIRECT_MEMORY: 2G
+    networks:
+      - drill-local
+      - hadoop-net
+
+networks:
+  drill-local:
+  hadoop-net:
+    name: hadoop-net
+    external: true
