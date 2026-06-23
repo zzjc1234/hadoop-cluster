@@ -3,4 +3,7 @@
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 
 echo "stop drill"
-docker compose -f "$SHELL_FOLDER/docker-compose.yml" -p hadoop-drill down
+"$SHELL_FOLDER/stop_drillbit.sh" 3
+"$SHELL_FOLDER/stop_drillbit.sh" 2
+"$SHELL_FOLDER/stop_drillbit.sh" 1
+"$SHELL_FOLDER/stop_zookeeper.sh"
