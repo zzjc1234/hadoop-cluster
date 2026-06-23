@@ -1,0 +1,29 @@
+services:
+  zookeeper:
+    image: tcimba/drill:latest
+    container_name: hadoop-zookeeper
+    hostname: hadoop-zookeeper
+    command: zookeeper
+    networks:
+      - hadoop-net
+
+  drillbit:
+    image: tcimba/drill:latest
+    container_name: hadoop-drillbit-${DRILLBIT_ID}
+    hostname: hadoop-drillbit-${DRILLBIT_ID}
+    command: drillbit
+    ports:
+      - "${DRILL_HTTP_PORT:-8047}:8047"
+      - "${DRILL_USER_PORT:-31010}:31010"
+    environment:
+      DRILL_HEAP: ${DRILL_HEAP:-1G}
+      DRILL_MAX_DIRECT_MEMORY: ${DRILL_MAX_DIRECT_MEMORY:-2G}
+    networks:
+      - drill-local
+      - hadoop-net
+
+networks:
+  drill-local:
+  hadoop-net:
+    name: hadoop-net
+    external: true

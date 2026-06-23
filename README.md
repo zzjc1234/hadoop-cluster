@@ -85,3 +85,13 @@ master/start_hadoop.sh
 ```bash
 ./run-wordcount.sh
 ```
+
+9. Start Drill on multiple host machines.
+```bash
+# On manager
+drill/start_zookeeper.sh
+
+# On each host
+drill/start_drillbit.sh 1
+```
+Use a different Drillbit ID on each host. If you run multiple Drillbits on one host, set `DRILL_HTTP_PORT` and `DRILL_USER_PORT` to avoid port conflicts.
